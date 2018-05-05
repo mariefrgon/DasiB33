@@ -36,7 +36,7 @@ public class Service {
         boolean result; 
        
         //Si la civilité est invalide, on envoie un mail d'invalidité et on retourne false;
-       if(c.getCivilite() != "M" && c.getCivilite() != "M."&& !c.getCivilite().equals("Mme")&& !c.getCivilite().equals("Mme.")&& !c.getCivilite().equals("Dr") ){
+       if(!c.getCivilite().equals("M") && !c.getCivilite().equals("M.") && !c.getCivilite().equals("Mme")&& !c.getCivilite().equals("Mme.")&& !c.getCivilite().equals("Dr") ){
             
             Mail.envoiMailErreur(c);
             return false;
@@ -50,9 +50,9 @@ public class Service {
             Mail.envoiMailValide(c);
             
         }catch(Exception ex){  
+            ex.printStackTrace();
             JpaUtil.annulerTransaction();
-            result = false;
-            
+            result = false;            
             Mail.envoiMailErreur(c);
         }
         JpaUtil.fermerEntityManager();
